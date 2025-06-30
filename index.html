@@ -1,1 +1,280 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Secure Package Search</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #4f46e5, #06b6d4);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Fixed header */
+    /* Header fixed at top */
+    header {
+      index: fixed;
+      top: 0;
+      width: 100%;
+      background: white;
+      padding: 1rem 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 100;
+      user-select: none;
+    }
+
+    .title {
+      font-size: 2.4rem;
+      color: #4f46e5;
+      letter-spacing: 0.05em;
+      margin: 0;
+      font-weight: 400;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .title .bold {
+      font-weight: 700;
+    }
+
+    .subtitle {
+      color: rgba(79, 70, 229, 0.6);
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+      text-align: center;
+    }
+
+    /* Wrapper below header, fills remaining height */
+    main {
+      margin-top: 72px; /* height of fixed header */
+      height: calc(100vh - 72px);
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* White container with search */
+    .search-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #374151; /* dark text inside white container */
+    }
+
+    #searchForm {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      transition: border 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    #searchInput:focus {
+      outline: none;
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      background-color: #4f46e5;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #4338ca;
+    }
+
+    button:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .result {
+      margin-top: 1.5rem;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    footer {
+      index: fixed;
+      bottom: 0;
+      width: 100%;
+      background: white;
+      padding: 1rem 0;
+      box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: center;
+      user-select: none;
+      z-index: 100;
+    }
+
+    .footer-content {
+      color: #4f46e5;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-align: center;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1 class="title">
+      I<span class="bold">d</span>io<span class="bold">s</span>y<span class="bold">ncrasy</span>
+    </h1>
+    <div class="subtitle">Data Sharing aNd Collection Reveal Android SYstem</div>
+  </header>
+
+  <main>
+    <div class="search-container">
+      <form id="searchForm" autocomplete="off">
+        <input type="text" id="searchInput" placeholder="package_name" />
+        <button type="submit">Search</button>
+      </form>
+      <div class="result" id="result"></div>
+    </div>
+  </main>
+  <footer>
+    <div class="footer-content">
+      &copy; 2025 Idiosyncrasy. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+  document.getElementById('searchForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const input = document.getElementById('searchInput').value.trim();
+    const package_name = input.replace(/[<>]/g, "");
+    const API_URL = 'http://127.0.0.1:5000/';
+
+    if (!package_name) {
+      document.getElementById('result').textContent = "Please enter a package name.";
+      return;
+    }
+
+    // Update the URL hash
+    location.hash = package_name;
+
+    var data;
+    currentIndex = 0
+
+    async function fetchItems(index) {
+      const res = await fetch(API_URL+package_name);
+      data = await res.json();
+      console.log()
+
+      if (data[index]["name"] == "-" && data[index]["package_name"] == "-" && data[index]["version"] == "-" && data[index]["versionCode"] == "-"){
+        document.getElementById('result').innerHTML = '<span style="color:red;">Not Found</span>';
+      }
+      else{
+        // Replace the container content
+        const container = document.querySelector('.search-container');
+        container.innerHTML = `
+          <h2 id="app_name" style="color:#4f46e5; margin-top: 0; text-align: center;">${data[index]["name"]}</h2>
+          <h5 id="app_queue" style="margin-top: 0;">${currentIndex+1}/${data.length} (Press the Spacebar to view the next app)</h5>
+
+          <img id="app_img" src="data:image/png;base64,${data[index]["icon"]}" style="text-align: center; border-radius: 20px;" width=20% height=20% alt="Icon">
+          
+          <form id="detailsForm" autocomplete="off" style="width: 100%; margin-top: 1.5rem;">
+            <div style="margin-bottom: 1rem; text-align: center;">
+              <label style="display: block; margin-bottom: 0.5rem;">Package name:</label>
+              <input id="app_package_name" type="text" readonly value="${data[index]["package_name"]}"
+                     style="text-align: center; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px; width: 70%;" />
+            </div>
+            <div style="margin-bottom: 1rem; text-align: center;">
+              <label style="display: block; margin-bottom: 0.5rem;">Version:</label>
+              <input id="app_version" type="text" readonly value="${data[index]["version"]}"
+                     style="text-align: center; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px; width: 70%;" />
+            </div>
+            <div style="margin-bottom: 1rem; text-align: center;">
+              <label style="display: block; margin-bottom: 0.5rem;">Downloads:</label>
+              <input id="app_downloads" type="text" readonly value="${data[index]["downloads"]}"
+                     style="text-align: center; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px; width: 70%;" />
+            </div>
+            <div style="margin-bottom: 1rem; text-align: center;">
+              <label style="display: block; margin-bottom: 0.5rem;">Collected Data:</label>
+              <input id="app_collect" type="text" readonly value="${data[index]["collect"]}"
+                     style="text-align: center; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px; width: 70%;" />
+            </div>
+            <div style="margin-bottom: 1rem; text-align: center;">
+              <label style="display: block; margin-bottom: 0.5rem;">Shared Data:</label>
+              <input id="app_share" type="text" readonly value="${data[index]["share"]}"
+                     style="text-align: center; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px; width: 70%;" />
+            </div>
+            <div style="margin-bottom: 1rem; text-align: center;">
+              <label style="display: block; margin-bottom: 0.5rem;">Type & Mode:</label>
+              <input id="app_type_mode" type="text" readonly value="${data[index]["type"]} & ${data[index]["mode"]}"
+                     style="text-align: center; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px; width: 70%;" />
+            </div>
+          </form>
+        `;
+      }
+    }
+
+    function updateCard(index) {
+      document.getElementById("app_name").textContent = data[index]["name"];
+      document.getElementById("app_queue").textContent = (currentIndex+1)+"/"+data.length+" (Press the Spacebar to view the next app)";
+      document.getElementById("app_img").src = "data:image/png;base64,"+data[index]["icon"];
+      document.getElementById("app_package_name").value = data[index]["package_name"];
+      document.getElementById("app_version").value = data[index]["version"];
+      document.getElementById("app_downloads").value = data[index]["downloads"];
+      document.getElementById("app_collect").value = data[index]["collect"];
+      document.getElementById("app_share").value = data[index]["share"];
+      document.getElementById("app_type_mode").value = data[index]["type"]+" & "+data[index]["mode"];
+    }
+
+    document.addEventListener("keydown", function(e) {
+      if (e.code === "Space") {
+        e.preventDefault();
+        currentIndex = (currentIndex + 1) % data.length;
+        updateCard(currentIndex);
+      }
+    });
+
+    fetchItems(0)
+  
+  });
+</script>
+
+
+
+
+</body>
+</html>

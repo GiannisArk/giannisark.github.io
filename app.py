@@ -14,7 +14,7 @@ def get_db_cursor():
     return conn
 
 def searchByName(name, cursor):
-    keys = ("versionCode", "version","package_name","icon","collect","share","name","greek_name","downloads","type","mode")
+    keys = ("versionCode", "version","package_name","icon","collect","share","collect_discr","share_discr","name","greek_name","downloads","type","mode")
     try:
         name = name.replace("ή","η").replace("ί","ι").replace("ύ","υ").replace("έ","ε").replace("ό","ο").replace("ώ","ω").lower()
 
@@ -52,10 +52,10 @@ def searchByName(name, cursor):
         results = lst
 
         if candidate_names==[]:
-            results = [{"versionCode": "-", "version":"-", "package_name":"-","icon":"-","collect":"-", "share":"-", "name":"-", "downloads":"-","type":"-", "mode":"-"}]
+            results = [{"versionCode": "-", "version":"-", "package_name":"-","icon":"-","collect":"-", "share":"-", "collect_discr":"-", "share_discr":"-", "name":"-", "downloads":"-","type":"-", "mode":"-"}]
 
     except sqlite3.Error as e:
-        results = [{"versionCode": "-", "version":"-", "package_name":"-","icon":"-","collect":"-", "share":"-", "name":"-", "downloads":"-","type":"-", "mode":"-"}]
+        results = [{"versionCode": "-", "version":"-", "package_name":"-","icon":"-","collect":"-", "share":"-", "collect_discr":"-", "share_discr":"-", "name":"-", "downloads":"-","type":"-", "mode":"-"}]
 
     return results
 
@@ -64,7 +64,7 @@ def searchByName(name, cursor):
 def get_app(package_name):
     conn = get_db_cursor()
     cursor = conn.cursor()
-    keys = ("versionCode", "version","package_name","icon","collect","share","name","greek_name","downloads","type","mode")
+    keys = ("versionCode", "version","package_name","icon","collect","share","collect_discr","share_discr","name","greek_name","downloads","type","mode")
     try:
         qry = "SELECT * FROM Data_Accessed WHERE package_name=?"
         cursor.execute(qry, (package_name, ))
@@ -78,7 +78,7 @@ def get_app(package_name):
             result = searchByName(package_name, cursor)
 
     except sqlite3.Error as e:
-        result = [{"versionCode": "-", "version":"-", "package_name":"-","icon":"-","collect":"-", "share":"-", "name":"-", "downloads":"-","type":"-", "mode":"-"}]
+        result = [{"versionCode": "-", "version":"-", "package_name":"-","icon":"-","collect":"-", "share":"-", "collect_discr":"-", "share_discr":"-", "name":"-", "downloads":"-","type":"-", "mode":"-"}]
 
     conn.commit()
     conn.close()
@@ -87,7 +87,7 @@ def get_app(package_name):
 
 @app.route('/', methods=['GET'])
 def get_default():
-    return jsonify([{"versionCode": "-", "version":"-", "package_name":"-","icon":"-","collect":"-", "share":"-", "name":"-"}])
+    return jsonify([{"versionCode": "-", "version":"-", "package_name":"-","icon":"-","collect":"-", "share":"-", "collect_discr":"-", "share_discr":"-", "name":"-", "downloads":"-","type":"-", "mode":"-"}])
 
 if __name__ == '__main__':
     app.run(debug=True)

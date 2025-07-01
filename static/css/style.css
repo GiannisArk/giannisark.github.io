@@ -142,3 +142,7 @@ td.truncate {
   text-align: center;
   vertical-align: middle;
 }
+ul.custom-bullets li::marker {
+  font-size: 1.5em; /* bigger bullets */
+  color: inherit; /* inherit color from li */
+}

@@ -153,22 +153,22 @@ def get_top_downloads():
     cursor = conn.cursor()
     keys = ("versionCode","version","package_name","icon","collect","share","collect_discr","share_discr","name","greek_name","downloads","type","mode")
 
-    # Optional query param 'limit' to control how many top apps to return, default 5
-    limit = min(request.args.get('limit', default=5, type=int), 20)
+    # Get offset and limit from query parameters, default limit 100
+    offset = request.args.get('offset', default=0, type=int)
+    limit = request.args.get('limit', default=100, type=int)
 
     try:
         qry = f'''
             SELECT * FROM Data_Accessed 
             ORDER BY CAST(downloads AS INTEGER) DESC
-            LIMIT ?
+            LIMIT ? OFFSET ?
         '''
-        cursor.execute(qry, (limit,))
+        cursor.execute(qry, (limit, offset))
         data = cursor.fetchall()
 
         results = []
         for item in data:
             result = dict(zip(keys, item))
-            # Encode icon binary to base64 string
             result["icon"] = base64.b64encode(result["icon"]).decode('utf-8')
             results.append(result)
 

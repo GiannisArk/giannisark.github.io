@@ -9,15 +9,17 @@
 </head>
 <body>
 
- <header>
-  <h1 class="title" style="font-size:2.5rem; margin:0;">
-    <span class="bold" style="font-weight:900;">APOKALYPS</span>IS
-  </h1>
-  <div class="subtitle" style="font-size:1rem; color:#555; margin-top:8px;">
-    APp Observation and Knowledge AnaLYzer for Privacy and Security
+<header style="text-align:center; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 1rem;">
+  <img src="{{ url_for('static', filename='privacyscout.png') }}" alt="Logo" style="height: 50px; width: auto;" />
+  <div>
+    <h1 class="title" style="font-size:2.5rem; margin:0; font-weight:900;">
+      <span style="color: white;">Privacy</span><span style="color: #5bc0de;">Scout</span>
+    </h1>
+    <div class="subtitle" style="font-size:1rem; color:#6d6d6d; margin-top:8px;">
+      Uncovering Mobile Data Safety Discrepancies
+    </div>
   </div>
 </header>
-
   <main>
     <div class="search-container">
       <form id="searchForm" autocomplete="off">

@@ -196,7 +196,7 @@
     currentIndex = 0
 
     async function fetchItems(index) {
-      const res = await fetch(API_URL+package_name);
+      const res = await fetch(API_URL+"search/"+package_name);
       data = await res.json();
       console.log()
 

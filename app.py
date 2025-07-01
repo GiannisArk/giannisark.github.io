@@ -14,7 +14,7 @@ def get_db_cursor():
     return conn
 
 def searchByName(name, cursor):
-    keys = ("versionCode", "version","package_name","icon","collect","share","collect_discr","share_discr","name","greek_name","downloads","type","mode")
+    keys = ("versionCode","version","package_name","icon","collect","share","collect_discr","share_discr","name","greek_name","downloads","type","mode")
     try:
         name = name.replace("ή","η").replace("ί","ι").replace("ύ","υ").replace("έ","ε").replace("ό","ο").replace("ώ","ω").lower()
 
@@ -36,15 +36,16 @@ def searchByName(name, cursor):
         placeholders = ','.join('?' for _ in candidate_names)
         # print(placeholders, candidate_names)
 
+
         qry = f"SELECT * FROM Data_Accessed WHERE name IN ({placeholders}) OR greek_name IN ({placeholders})"  
         cursor.execute(qry, candidate_names+candidate_names)
         data = cursor.fetchall()
-
+        
         c=0
         lst = []
         for candidate_name in candidate_names:
             for item in data:
-                if candidate_name==item[6] or candidate_name==item[7]:
+                if candidate_name==item[8] or candidate_name==item[9]:
                     result = dict(zip(keys, item))
                     result["icon"] = base64.b64encode(result["icon"]).decode('utf-8')
                     lst.append(result)
@@ -60,11 +61,11 @@ def searchByName(name, cursor):
     return results
 
 
-@app.route('/<string:package_name>', methods=['GET'])
+@app.route('/search/<string:package_name>', methods=['GET'])
 def get_app(package_name):
     conn = get_db_cursor()
     cursor = conn.cursor()
-    keys = ("versionCode", "version","package_name","icon","collect","share","collect_discr","share_discr","name","greek_name","downloads","type","mode")
+    keys = ("versionCode","version","package_name","icon","collect","share","collect_discr","share_discr","name","greek_name","downloads","type","mode")
     try:
         qry = "SELECT * FROM Data_Accessed WHERE package_name=?"
         cursor.execute(qry, (package_name, ))
@@ -88,6 +89,33 @@ def get_app(package_name):
 @app.route('/', methods=['GET'])
 def get_default():
     return jsonify([{"versionCode": "-", "version":"-", "package_name":"-","icon":"-","collect":"-", "share":"-", "collect_discr":"-", "share_discr":"-", "name":"-", "downloads":"-","type":"-", "mode":"-"}])
+
+
+@app.route('/list/', methods=['GET'])
+def get_all():
+    conn = get_db_cursor()
+    cursor = conn.cursor()
+    keys = ("versionCode","version","package_name","icon","collect","share","collect_discr","share_discr","name","greek_name","downloads","type","mode")
+    try:
+        qry = "SELECT * FROM Data_Accessed LIMIT 100"
+        cursor.execute(qry)
+        data = cursor.fetchall()
+
+        results = []
+
+        if data != None:
+            for item in data:
+                result = dict(zip(keys, item))
+                result["icon"] = base64.b64encode(result["icon"]).decode('utf-8')
+                results.append(result)
+
+    except sqlite3.Error as e:
+        results = [{"versionCode": "-", "version":"-", "package_name":"-","icon":"-","collect":"-", "share":"-", "collect_discr":"-", "share_discr":"-", "name":"-", "downloads":"-","type":"-", "mode":"-"}]
+
+    conn.commit()
+    conn.close()
+
+    return jsonify(results)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -36,7 +36,7 @@ function formatNumber(num) {
 
 function commaSeparatedToBullets(str) {
     if (!str) return '';
-    const items = str.split(',').map(s => s.trim()).filter(Boolean);
+    const items = str.split(', ').map(s => s.trim()).filter(Boolean);
     if (items.length === 0) return '';
 
     return `<ul class="custom-bullets" style="padding-left: 20px; margin: 0;">` +

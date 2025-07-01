@@ -43,15 +43,15 @@
       padding: 2rem 1rem;
     }
 
-   .search-container {
+  .search-container {
   background: white;
   padding: 2rem;
   border-radius: 20px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  width: 95%;          /* increase width */
-  max-width: 1200px;   /* make max-width wider */
+  width: 98%;          /* increased width */
+  max-width: 1400px;   /* increased max-width */
   color: #374151;
-  overflow-x: auto;    /* keep horizontal scroll for smaller screens */
+  overflow-x: auto;
 }
 
     form#searchForm {
@@ -99,9 +99,38 @@
     }
 
     /* DataTables adjustment */
-    table.dataTable thead th {
-      background-color: #f3f4f6;
-      font-weight: 600;
-      color: #374151;
-    }
-  
+table.dataTable thead th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Make table cells wrap long content nicely */
+table.dataTable td, table.dataTable th {
+  white-space: normal !important;  /* allow wrapping */
+  word-wrap: break-word;            /* break long words */
+  word-break: break-word;           /* ensure breaks on long strings */
+  max-width: 150px;                 /* optional: limit width */
+  vertical-align: middle;           /* changed from top to middle for vertical centering */
+  text-align: center;               /* center horizontally */
+}
+
+/* Keep your existing truncate class */
+td.truncate {
+  max-width: 150px;          /* Adjust as needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: help;              /* indicates tooltip */
+  vertical-align: middle;
+  text-align: left;          /* override centering here for readability */
+}
+
+/* Icon size fix & center */
+#resultsTable td img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto; /* center horizontally */
+}

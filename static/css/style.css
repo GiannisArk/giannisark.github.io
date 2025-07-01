@@ -134,3 +134,11 @@ td.truncate {
   display: block;
   margin: 0 auto; /* center horizontally */
 }
+#resultsTable thead th {
+  text-align: center;
+  vertical-align: middle;
+}
+#resultsTable tbody td {
+  text-align: center;
+  vertical-align: middle;
+}

@@ -7,7 +7,6 @@ function getRandomComplianceColor() {
     return `<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background-color:${color};" title="Compliance: ${color}"></span>`;
 }
 
-// Format large numbers (Downloads) to K, M, B, etc.
 function formatNumber(num) {
     if (num === null || num === undefined) return '';
     if (num < 1000) return num.toString();

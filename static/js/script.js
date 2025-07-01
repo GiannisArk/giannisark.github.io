@@ -81,6 +81,14 @@ function renderTable(data) {
     ],
     order: [[3, 'desc']] // default sorting descending by Downloads
   });
+//   const broken = [];
+//   const allicons = document.querySelectorAll('#resultsTable img');
+//   allicons.forEach((element,idx) => {
+//     element.onerror = () => {
+//         const package_name = data[idx].package_name;
+//         console.log(package_name)
+//     }
+//   });
 }
 
 

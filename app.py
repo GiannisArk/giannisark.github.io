@@ -97,6 +97,23 @@ def get_app(package_name):
 
     return jsonify(result)
 
+
+# @app.route('/get_package_no_icon', methods=['GET'])
+# def get_package_no_icon():
+#     conn = get_db_cursor()
+#     cursor = conn.cursor()
+#     try:
+#         cursor.execute("""
+#         SELECT package_name FROM Data_accessed WHERE icon IS NULL OR LENGTH(ICON) = 0
+#         """)
+#         rows = cursor.fetchall()
+#         package_names = [row[0] for row in rows]
+#     except sqlite3.Error as e:
+#         package_names = []
+#     finally:
+#         conn.close()
+#     return jsonify(package_names)
+
 @app.route('/page/<int:num>', methods=['GET'])
 def get_all(num):
     conn = get_db_cursor()

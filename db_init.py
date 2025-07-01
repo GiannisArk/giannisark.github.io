@@ -31079,7 +31079,7 @@ if __COLLECTED_SHARED_INIT__:
 			name TEXT,
 	        greek_name TEXT,
 	        downloads TEXT,
-	        type TEXT CHECK(type IN ('Emulator', 'Device')),
+	        type TEXT,
 	        mode TEXT CHECK(mode IN ('Automatic', 'Manual')),
 	        PRIMARY KEY (versionCode, package_name)
 	    )
@@ -31098,7 +31098,7 @@ if __COLLECTED_SHARED_INIT__:
 			collected_discr = collected_discrepancies[app]
 		if app in shared_discrepancies:
 			shared_discr = shared_discrepancies[app]
-		cursor.execute(qry, (mappingCodes[app], mapping[app], app, convertToBinaryData(f"{images_path}{app}.png"), collected[app], shared[app], collected_discr, shared_discr, mappingNames[app], mappingGreekNames[app], downloads[app], "Device", "Automatic"))
+		cursor.execute(qry, (mappingCodes[app], mapping[app], app, convertToBinaryData(f"{images_path}{app}.png"), collected[app], shared[app], collected_discr, shared_discr, mappingNames[app], mappingGreekNames[app], downloads[app], "Pixel 4 - Android12", "Automatic"))
 
 
 # Save (commit) the changes

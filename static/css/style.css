@@ -43,16 +43,16 @@
       padding: 2rem 1rem;
     }
 
-  .search-container {
-  background: white;
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  width: 98%;          /* increased width */
-  max-width: 1400px;   /* increased max-width */
-  color: #374151;
-  overflow-x: auto;
-}
+    .search-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    width: 98%;          /* increased width */
+    max-width: 1400px;   /* increased max-width */
+    color: #374151;
+    overflow-x: auto;
+    }
 
     form#searchForm {
       display: flex;

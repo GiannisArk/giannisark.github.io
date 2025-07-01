@@ -116,6 +116,43 @@ def get_all():
     conn.close()
 
     return jsonify(results)
+@app.route('/top_downloads', methods=['GET'])
+def get_top_downloads():
+    conn = get_db_cursor()
+    cursor = conn.cursor()
+    keys = ("versionCode","version","package_name","icon","collect","share","collect_discr","share_discr","name","greek_name","downloads","type","mode")
+
+    # Optional query param 'limit' to control how many top apps to return, default 5
+    limit = request.args.get('limit', default=5, type=int)
+
+    try:
+        qry = f'''
+            SELECT * FROM Data_Accessed 
+            ORDER BY CAST(downloads AS INTEGER) DESC
+            LIMIT ?
+        '''
+        cursor.execute(qry, (limit,))
+        data = cursor.fetchall()
+
+        results = []
+        for item in data:
+            result = dict(zip(keys, item))
+            # Encode icon binary to base64 string
+            result["icon"] = base64.b64encode(result["icon"]).decode('utf-8')
+            results.append(result)
+
+        if not results:
+            results = [{"versionCode": "-", "version":"-", "package_name":"-","icon":"-","collect":"-", "share":"-", 
+                        "collect_discr":"-", "share_discr":"-", "name":"-", "downloads":"-","type":"-", "mode":"-"}]
+
+    except sqlite3.Error as e:
+        results = [{"versionCode": "-", "version":"-", "package_name":"-","icon":"-","collect":"-", "share":"-", 
+                    "collect_discr":"-", "share_discr":"-", "name":"-", "downloads":"-","type":"-", "mode":"-"}]
+
+    conn.commit()
+    conn.close()
+
+    return jsonify(results)
 
 if __name__ == '__main__':
     app.run(debug=True)

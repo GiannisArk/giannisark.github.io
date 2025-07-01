@@ -4,152 +4,115 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Secure Package Search</title>
+
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+
   <style>
-    html, body {
-      margin: 0; padding: 0; height: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #4f46e5, #06b6d4);
-      color: white;
-      overflow-x: hidden;
-    }
-
     body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      padding: 0;
+      color: #374151;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      min-height: 100vh;
     }
 
-    /* Fixed header */
-    /* Header fixed at top */
     header {
-      index: fixed;
-      top: 0;
-      width: 100%;
-      background: white;
+      background: #1f2937;
+      color: white;
       padding: 1rem 0;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 100;
-      user-select: none;
+      text-align: center;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
     }
 
     .title {
-      font-size: 2.4rem;
-      color: #4f46e5;
-      letter-spacing: 0.05em;
+      font-size: 2rem;
       margin: 0;
-      font-weight: 400;
-      text-align: center;
-      line-height: 1;
+      letter-spacing: 2px;
     }
 
-    .title .bold {
+    .bold {
       font-weight: 700;
+      color: #3b82f6; /* blue */
     }
 
     .subtitle {
-      color: rgba(79, 70, 229, 0.6);
-      font-weight: 500;
-      font-size: 0.9rem;
+      font-weight: 400;
+      font-size: 1rem;
+      color: #9ca3af;
       margin-top: 0.25rem;
-      text-align: center;
     }
 
-    /* Wrapper below header, fills remaining height */
     main {
-      margin-top: 72px; /* height of fixed header */
-      height: calc(100vh - 72px);
-      width: 100%;
+      flex: 1;
       display: flex;
       justify-content: center;
-      align-items: center;
+      padding: 2rem 1rem;
     }
 
-    /* White container with search */
-    .search-container {
-      background: white;
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-      width: 90%;
-      max-width: 400px;
+   .search-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  width: 95%;          /* increase width */
+  max-width: 1200px;   /* make max-width wider */
+  color: #374151;
+  overflow-x: auto;    /* keep horizontal scroll for smaller screens */
+}
+
+    form#searchForm {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #374151; /* dark text inside white container */
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
     }
 
-    #searchForm {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    #searchInput {
-      width: 100%;
-      padding: 0.75rem 1rem;
+    input#searchInput {
+      flex-grow: 1;
+      padding: 0.5rem 1rem;
       border: 2px solid #e5e7eb;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      transition: border 0.3s ease;
-      box-sizing: border-box;
+      border-radius: 10px;
+      font-size: 1rem;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease;
     }
 
-    #searchInput:focus {
+    input#searchInput:focus {
+      border-color: #3b82f6;
       outline: none;
-      border-color: #4f46e5;
-      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
     }
 
     button {
-      margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
-      font-size: 1rem;
-      border: none;
-      background-color: #4f46e5;
+      padding: 0.5rem 1rem;
+      background-color: #3b82f6;
       color: white;
+      border: none;
       border-radius: 10px;
       cursor: pointer;
+      font-weight: 600;
       transition: background-color 0.3s ease;
     }
 
     button:hover {
-      background-color: #4338ca;
-    }
-
-    button:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    .result {
-      margin-top: 1.5rem;
-      font-weight: 500;
-      text-align: center;
+      background-color: #2563eb;
     }
 
     footer {
-      index: fixed;
-      bottom: 0;
-      width: 100%;
-      background: white;
+      background: #1f2937;
+      color: #9ca3af;
+      text-align: center;
       padding: 1rem 0;
-      box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: center;
-      user-select: none;
-      z-index: 100;
+      font-size: 0.875rem;
     }
 
-    .footer-content {
-      color: #4f46e5;
-      font-weight: 500;
-      font-size: 0.9rem;
-      text-align: center;
-      user-select: none;
+    /* DataTables adjustment */
+    table.dataTable thead th {
+      background-color: #f3f4f6;
+      font-weight: 600;
+      color: #374151;
     }
   </style>
 </head>
@@ -168,113 +131,130 @@
         <input type="text" id="searchInput" placeholder="package_name" />
         <button type="submit">Search</button>
       </form>
-      <div class="result" id="result"></div>
+      <div class="result" id="result" style="margin-top: 1.5rem;"></div>
     </div>
   </main>
+
   <footer>
     <div class="footer-content">
       &copy; 2025 Idiosyncrasy. All rights reserved.
     </div>
   </footer>
 
+  <!-- jQuery and DataTables JS -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
   <script>
-  document.getElementById('searchForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const input = document.getElementById('searchInput').value.trim();
-    const package_name = input.replace(/[<>]/g, "");
+    let dataTable;  // Store DataTable instance
     const API_URL = 'http://127.0.0.1:5000/';
 
-    if (!package_name) {
-      document.getElementById('result').textContent = "Please enter a package name.";
-      return;
-    }
-
-    // Update the URL hash
-    location.hash = package_name;
-
-    var data;
-    currentIndex = 0
-
-    async function fetchItems(index) {
-      const res = await fetch(API_URL+"search/"+package_name);
-      data = await res.json();
-      console.log()
-
-      if (data[index]["name"] == "-" && data[index]["package_name"] == "-" && data[index]["version"] == "-" && data[index]["versionCode"] == "-"){
-        document.getElementById('result').innerHTML = '<span style="color:red;">Not Found</span>';
+    // Function to render data into DataTable
+    function renderTable(data) {
+      if (!data || data.length === 0 || (data[0].name === "-" && data[0].package_name === "-")) {
+        document.getElementById('result').innerHTML = '<span style="color:red;">No data available.</span>';
+        if (dataTable) {
+          dataTable.clear().draw();
+        }
+        return;
       }
-      else{
-        // Replace the container content
-        const container = document.querySelector('.search-container');
-        container.innerHTML = `
-          <h2 id="app_name" style="color:#4f46e5; margin-top: 0; text-align: center;">${data[index]["name"]}</h2>
-          <h5 id="app_queue" style="margin-top: 0;">${currentIndex+1}/${data.length} (Press the Spacebar to view the next app)</h5>
 
-          <img id="app_img" src="data:image/png;base64,${data[index]["icon"]}" style="text-align: center; border-radius: 20px;" width=20% height=20% alt="Icon">
-          
-          <form id="detailsForm" autocomplete="off" style="width: 100%; margin-top: 1.5rem;">
-            <div style="margin-bottom: 1rem; text-align: center;">
-              <label style="display: block; margin-bottom: 0.5rem;">Package name:</label>
-              <input id="app_package_name" type="text" readonly value="${data[index]["package_name"]}"
-                     style="text-align: center; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px; width: 70%;" />
-            </div>
-            <div style="margin-bottom: 1rem; text-align: center;">
-              <label style="display: block; margin-bottom: 0.5rem;">Version:</label>
-              <input id="app_version" type="text" readonly value="${data[index]["version"]}"
-                     style="text-align: center; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px; width: 70%;" />
-            </div>
-            <div style="margin-bottom: 1rem; text-align: center;">
-              <label style="display: block; margin-bottom: 0.5rem;">Downloads:</label>
-              <input id="app_downloads" type="text" readonly value="${data[index]["downloads"]}"
-                     style="text-align: center; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px; width: 70%;" />
-            </div>
-            <div style="margin-bottom: 1rem; text-align: center;">
-              <label style="display: block; margin-bottom: 0.5rem;">Collected Data:</label>
-              <input id="app_collect" type="text" readonly value="${data[index]["collect"]}"
-                     style="text-align: center; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px; width: 70%;" />
-            </div>
-            <div style="margin-bottom: 1rem; text-align: center;">
-              <label style="display: block; margin-bottom: 0.5rem;">Shared Data:</label>
-              <input id="app_share" type="text" readonly value="${data[index]["share"]}"
-                     style="text-align: center; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px; width: 70%;" />
-            </div>
-            <div style="margin-bottom: 1rem; text-align: center;">
-              <label style="display: block; margin-bottom: 0.5rem;">Type & Mode:</label>
-              <input id="app_type_mode" type="text" readonly value="${data[index]["type"]} & ${data[index]["mode"]}"
-                     style="text-align: center; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px; width: 70%;" />
-            </div>
-          </form>
-        `;
+      document.getElementById('result').innerHTML = `
+        <table id="resultsTable" class="display" style="width:100%">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Package Name</th>
+              <th>Version</th>
+              <th>Downloads</th>
+              <th>Collected Data</th>
+              <th>Shared Data</th>
+              <th>Type</th>
+              <th>Mode</th>
+              <th>Icon</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      `;
+
+      if (dataTable) {
+        dataTable.destroy();
+      }
+
+      const rows = data.map(item => [
+        item.name,
+        item.package_name,
+        item.version,
+        item.downloads,
+        item.collect,
+        item.share,
+        item.type,
+        item.mode,
+        `<img src="data:image/png;base64,${item.icon}" alt="icon" style="width:40px; height:40px; border-radius:8px;">`
+      ]);
+
+      dataTable = $('#resultsTable').DataTable({
+        data: rows,
+        columns: [
+          { title: "Name" },
+          { title: "Package Name" },
+          { title: "Version" },
+          { title: "Downloads" },
+          { title: "Collected Data" },
+          { title: "Shared Data" },
+          { title: "Type" },
+          { title: "Mode" },
+          { title: "Icon", orderable: false, searchable: false }
+        ],
+        pageLength: 5,
+        lengthChange: false,
+        language: {
+          emptyTable: "No apps found"
+        }
+      });
+    }
+
+    // On page load: fetch top downloads and show them
+    async function loadTopDownloads(limit = 5) {
+      try {
+        const res = await fetch(API_URL + `top_downloads?limit=${limit}`);
+        const data = await res.json();
+        renderTable(data);
+      } catch (error) {
+        console.error('Error loading top downloads:', error);
+        document.getElementById('result').innerHTML = '<span style="color:red;">Error loading data.</span>';
       }
     }
 
-    function updateCard(index) {
-      document.getElementById("app_name").textContent = data[index]["name"];
-      document.getElementById("app_queue").textContent = (currentIndex+1)+"/"+data.length+" (Press the Spacebar to view the next app)";
-      document.getElementById("app_img").src = "data:image/png;base64,"+data[index]["icon"];
-      document.getElementById("app_package_name").value = data[index]["package_name"];
-      document.getElementById("app_version").value = data[index]["version"];
-      document.getElementById("app_downloads").value = data[index]["downloads"];
-      document.getElementById("app_collect").value = data[index]["collect"];
-      document.getElementById("app_share").value = data[index]["share"];
-      document.getElementById("app_type_mode").value = data[index]["type"]+" & "+data[index]["mode"];
-    }
+    // Search form submit event
+    document.getElementById('searchForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
 
-    document.addEventListener("keydown", function(e) {
-      if (e.code === "Space") {
-        e.preventDefault();
-        currentIndex = (currentIndex + 1) % data.length;
-        updateCard(currentIndex);
+      const input = document.getElementById('searchInput').value.trim();
+      const package_name = input.replace(/[<>]/g, "");
+
+      if (!package_name) {
+        document.getElementById('result').textContent = "Please enter a package name.";
+        return;
+      }
+
+      location.hash = package_name;
+
+      try {
+        const res = await fetch(API_URL + "search/" + package_name);
+        const data = await res.json();
+        renderTable(data);
+      } catch (error) {
+        console.error(error);
+        document.getElementById('result').innerHTML = '<span style="color:red;">Error fetching data.</span>';
       }
     });
 
-    fetchItems(0)
-  
-  });
-</script>
+    // Initial load
+    loadTopDownloads();
 
-
-
+  </script>
 
 </body>
 </html>

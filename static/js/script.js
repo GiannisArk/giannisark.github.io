@@ -60,15 +60,15 @@ function renderTable(data) {
         <table id="resultsTable" class="display" style="width:100%; table-layout: fixed;">
             <thead>
                 <tr>
-                    <th style="min-width:120px;">App</th>
+                    <th style="min-width:80px; white-space: nowrap; text-align:center;">↓ DLs</th>
+                    <th style="min-width:160px;">App</th>
                     <th>Package Name</th>
                     <th>Version</th>
-                    <th>Downloads</th>
+                    <th>Device</th>
+                    <th>Dynamic Analysis</th>
+                    <th style="min-width:160px; white-space:nowrap;">Data Compliance Score</th>
                     <th>Collected Data</th>
                     <th>Shared Data</th>
-                    <th style="min-width:160px; white-space:nowrap;">Data Compliance Score</th>
-                    <th>Type</th>
-                    <th>Mode</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -85,7 +85,7 @@ function renderTable(data) {
         language: { emptyTable: "No apps found" },
         columnDefs: [
             {
-                targets: 3,
+                targets: 0, // Downloads column index
                 type: 'num',
                 render: function (data, type, row, meta) {
                     if (type === 'sort') {
@@ -97,13 +97,10 @@ function renderTable(data) {
                 }
             }
         ],
-        order: [[3, 'desc']],
+        order: [[0, 'desc']], // sort downloads descending
         drawCallback: function () {
-            // After table draws, add Load More button next to pagination next button
-
             const paginate = $('#resultsTable_paginate');
 
-            // If button already exists, skip
             if (paginate.find('#loadMoreBtn').length === 0) {
                 const btn = $('<button id="loadMoreBtn" class="paginate_button">Load More</button>');
                 btn.css({
@@ -120,11 +117,9 @@ function renderTable(data) {
                     loadTopDownloadsBatch();
                 });
 
-                // Append Load More button after "Next" button
                 paginate.find('a.paginate_button.next').after(btn);
             }
 
-            // Disable Load More button if all data loaded
             const loadMoreBtn = $('#loadMoreBtn');
             if (allDataLoaded) {
                 loadMoreBtn.prop('disabled', true).css({
@@ -147,18 +142,19 @@ function appendToTable(data) {
     if (!data || data.length === 0) return;
 
     const rows = data.map(item => [
+        `<span data-sort="${item.downloads}" style="white-space: nowrap;">${formatNumber(item.downloads)}</span>`,
         `<div style="display:flex; flex-direction:column; align-items:center;">
             <img src="data:image/png;base64,${item.icon}" alt="icon" style="width:40px;height:40px;border-radius:8px;margin-bottom:4px;">
-            <span style="text-align:center;">${item.name}</span>
+            <a href="https://play.google.com/store/apps/datasafety?id=${item.package_name}" target="_blank" style="text-align:center;">${item.name}</a>
+
         </div>`,
         item.package_name,
         item.version,
-        `<span data-sort="${item.downloads}" style="font-weight: bold;">${formatNumber(item.downloads)}</span>`,
-        commaSeparatedToBullets(item.collect),
-        commaSeparatedToBullets(item.share),
-        getRandomComplianceScoreBar(),
         item.type,
-        item.mode
+        item.mode,
+        getRandomComplianceScoreBar(),
+        commaSeparatedToBullets(item.collect),
+        commaSeparatedToBullets(item.share)
     ]);
 
     if (!dataTable) {
@@ -185,7 +181,6 @@ async function loadTopDownloadsBatch(reset = false) {
 
         if (data.length < BATCH_SIZE) {
             allDataLoaded = true;
-            // Optionally disable the Load More button
             const btn = document.getElementById('loadMoreBtn');
             if (btn) btn.disabled = true;
         }
@@ -207,7 +202,6 @@ document.getElementById('searchForm').addEventListener('submit', async function 
     const input = document.getElementById('searchInput').value.trim();
     if (!input) return;
 
-    // Disable Load More on search because search results may be small and paginated separately
     const btn = document.getElementById('loadMoreBtn');
     if (btn) btn.disabled = true;
 

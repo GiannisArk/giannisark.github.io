@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8">
     <title>My Demo!</title>
+    <style>
+        #webcam { width: 100%; max-width: 500px; background-color: #333; }
+    </style>
     <script type='text/javascript'>
       window.smartlook||(function(d) {
         var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
@@ -10,48 +14,214 @@
         })(document);
         smartlook('init', '07c90ac5c0991ad9d38a1fe89b0e55abbc078ad7', { region: 'eu' });
     </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+        body {
+            margin: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        #map {
+            width: 80%;
+            max-width: 700px;
+            height: 400px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        #status {
+            margin-bottom: 10px;
+        }
+    </style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="search"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"] {
+            width: 250px;
+            padding: 8px;
+        }
+
+        button {
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        .options {
+            margin: 10px 0;
+        }
+    </style>
   </head>
   <body>
     <div>
-      First name<br>
-      <input id="firstName" maxlength="50" name="first_name" type="text" role="textbox" value=""><br>
-      Password<br>
-      <input id="password" maxlength="50" name="password" type="password" role="textbox" value=""><br>
-      
-      <div class="relative">
-         Last name<br>
-        <input maxlength="50" name="last_name" type="text" role="textbox" value=""><br>
-        <!--Address<br>
-        <input id="addr" maxlength="50" name="address" type="text" role="textbox" value=""><br>
-        Email<br>
-        <input maxlength="50" name="email" type="text" role="textbox" value="" ><br> -->
-        Phone<br>
-        <input id="phone" maxlength="50" name="phone" type="text" role="textbox" value="" size="1" oninput="getVal()"><br>
-        <div class="absolute"> <img src="ItsKrumpingTime.jpg" alt="Girl in a jacket" width="300" height="160"> </div>
-      </div>
-      <br><br>
-      <br><br><br><br>
-      Card<br>
-      <input id="CreditCard" maxlength="50" name="credit_card" type="text" role="textbox" value=""><br>
-  
-      <label for="frmNameCC">Name on card</label>
-      <input name="ccname" id="frmNameCC" required placeholder="Full Name" autocomplete="cc-name">
-    
-      <label for="frmCCNum">Card Number</label>
-      <input name="cardnumber" id="frmCCNum" required autocomplete="cc-number">
-    
-      <label for="frmCCCVC">CVC</label>
-      <input name="cvc" id="frmCCCVC" required autocomplete="cc-csc">
-    
-      <label for="frmCCExp">Expiry</label>
-      <input name="cc-exp" id="frmCCExp" required placeholder="MM-YYYY" autocomplete="cc-exp">
+                <h2>HTML Form Elements</h2>
 
-      <label for="selfie">Take a Selfie:</label>
-      <input type="file" id="selfie" accept="image/*" capture="user">
-      
-      <!-- Opens the rear-facing camera to record a video -->
-      <label for="video">Record Surroundings:</label>
-      <input type="file" id="video" accept="video/*" capture="environment">
+        <!-- Search Bar -->
+        <div class="form-group">
+            <label for="search">Search</label>
+            <input type="search" id="search" placeholder="Search...">
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <button type="button">Click Me</button>
+        </div>
+
+        <!-- Checkbox -->
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="newsletter">
+                Subscribe to newsletter
+            </label>
+        </div>
+
+        <!-- Radio Buttons -->
+        <div class="form-group">
+            <p>Select a color:</p>
+
+            <label>
+                <input type="radio" name="color" value="red">
+                Red
+            </label>
+
+            <label>
+                <input type="radio" name="color" value="green">
+                Green
+            </label>
+
+            <label>
+                <input type="radio" name="color" value="blue">
+                Blue
+            </label>
+        </div>
+
+        <!-- Phone Input -->
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="+30 691 234 5678">
+        </div>
+
+        <!-- Date Input -->
+        <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" id="date">
+        </div>
+
+        <!-- Email Input -->
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="example@email.com">
+        </div>
+
+        <!-- Number Input -->
+        <div class="form-group">
+            <label for="number">Number</label>
+            <input type="number" id="number" min="0" max="100" placeholder="Enter a number">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+            >
+        </div>
+
+        <!-- Credit Card Input -->
+        <div class="form-group">
+            <label for="card">Credit Card Number</label>
+            <input
+                type="text"
+                id="card"
+                inputmode="numeric"
+                autocomplete="cc-number"
+                pattern="[0-9 ]{13,19}"
+                placeholder="1234 5678 9012 3456"
+            >
+        </div>
+
+        <h2>Live Browser Webcam Feed</h2>
+        <!-- The playsinline attribute prevents iOS from opening full-screen media players -->
+        <video id="webcam" autoplay playsinline></video>
+        <br>
+        <button id="start-camera">Start Camera</button>
+
+        <script src="app.js"></script>
+
+
+        <h2>Find My Live Location</h2>
+        <div id="status">Requesting location...</div>
+        <div id="map"></div>
+
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script src="map.js"></script>
+
+        <div class="form-group">
+            <label for="imageInput">Upload Image</label>
+            <input type="file" id="imageInput" accept="image/*">
+        </div>
+
+        <img id="previewImage" style="width:250px; margin-top:10px; display:block;" />
+
+        <!-- VIDEO UPLOAD -->
+        <div class="form-group">
+            <label for="videoInput">Upload Video</label>
+            <input type="file" id="videoInput" accept="video/*">
+        </div>
+
+        <video id="previewVideo"
+               width="300"
+               controls
+               style="margin-top:10px; display:block;">
+        </video>
+
+        <script>
+            // IMAGE PREVIEW
+            const imageInput = document.getElementById("imageInput");
+            const previewImage = document.getElementById("previewImage");
+
+            imageInput.addEventListener("change", function () {
+                const file = this.files[0];
+                if (file) {
+                    previewImage.src = URL.createObjectURL(file);
+                }
+            });
+
+            // VIDEO PREVIEW
+            const videoInput = document.getElementById("videoInput");
+            const previewVideo = document.getElementById("previewVideo");
+
+            videoInput.addEventListener("change", function () {
+                const file = this.files[0];
+                if (file) {
+                    previewVideo.src = URL.createObjectURL(file);
+                }
+            });
+        </script>
       
     </div>
   </body>

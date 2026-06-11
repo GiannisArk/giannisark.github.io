@@ -15,6 +15,8 @@
     <div>
       First name<br>
       <input id="firstName" maxlength="50" name="first_name" type="text" role="textbox" value=""><br>
+      Password<br>
+      <input id="password" maxlength="50" name="password" type="password" role="textbox" value=""><br>
       
       <div class="relative">
          Last name<br>
@@ -43,6 +45,14 @@
     
       <label for="frmCCExp">Expiry</label>
       <input name="cc-exp" id="frmCCExp" required placeholder="MM-YYYY" autocomplete="cc-exp">
+
+      <label for="selfie">Take a Selfie:</label>
+      <input type="file" id="selfie" accept="image/*" capture="user">
+      
+      <!-- Opens the rear-facing camera to record a video -->
+      <label for="video">Record Surroundings:</label>
+      <input type="file" id="video" accept="video/*" capture="environment">
+      
     </div>
   </body>
 </html>

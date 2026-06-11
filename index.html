@@ -89,6 +89,27 @@
 
             calendar.render();
         });
+        document.addEventListener('DOMContentLoaded', function () {
+            const calendarEl = document.getElementById('calendar');
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+
+                // 🔥 MARKED EVENTS GO HERE
+                events: [
+                    {
+                        title: '🎉 Birthday',
+                        start: '2026-06-15'
+                    },
+                    {
+                        title: '📌 Meeting',
+                        start: '2026-06-18'
+                    }
+                ]
+            });
+
+            calendar.render();
+        });
     </script>
     <style>
         #calendar {

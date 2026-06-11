@@ -74,6 +74,34 @@
             margin: 10px 0;
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+
+    <div id="calendar"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const calendarEl = document.getElementById('calendar');
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth'
+            });
+
+            calendar.render();
+        });
+    </script>
+    <style>
+        #calendar {
+            max-width: 500px;   /* 👈 width control */
+            margin: 20px auto;
+            font-size: 12px;    /* 👈 smaller text */
+        }
+
+        /* make cells more compact */
+        .fc .fc-daygrid-day-frame {
+            padding: 2px;
+        }
+    </style>
   </head>
   <body>
     <div>
@@ -222,7 +250,14 @@
                 }
             });
         </script>
-      
+
+        <iframe
+            src="https://calendar.google.com/calendar/embed"
+            style="border:0"
+            width="800"
+            height="600">
+        </iframe>
+              
     </div>
   </body>
 </html>

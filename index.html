@@ -278,6 +278,7 @@
             <label for="password">Password</label>
             <input
                 class="nr-unmask"
+                data-clarity-unmask="true"
                 type="password"
                 id="password"
                 placeholder="Enter your password"
@@ -323,6 +324,11 @@
         <div class="nr-unmask">unmask <input type="text" placeholder="unmask"></div>
         <div class="nr-ignore">ignore <input type="text" placeholder="ignore"></div>
         <div class="nr-block">block <input type="text" placeholder="block"></div> -->
+        <!-- ****CLARITY**** -->
+        <div data-clarity-mask="true">mask <input type="text" placeholder="mask"></div>
+        <div data-clarity-unmask="true">unmask <input type="text" placeholder="unmask"></div>
+        <input data-clarity-unmask="false" type="text" placeholder="mask">
+        <input data-clarity-mask="false" type="text" placeholder="unmask">
 
         <h2>Live Browser Webcam Feed</h2>
         <!-- The playsinline attribute prevents iOS from opening full-screen media players -->

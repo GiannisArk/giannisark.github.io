@@ -98,6 +98,14 @@
         })(window, document, "clarity", "script", "x7uprz3qpl");
     </script> -->
     <!-- ******CORALOGIX****** -->
+    <meta http-equiv="Content-Security-Policy" content="
+        script-src 'self' https://cloudflare.com; 
+        connect-src 'self' https://rum-ingress-coralogix.com;
+    ">
+
+    <!-- 2. Include Pako Compression Library (Required for Session Recording) -->
+    <script src="https://cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js" crossorigin="anonymous" defer></script>
+
     <script src="https://cdn.rum-ingress-coralogix.com/coralogix/browser/3.10.0/coralogix-browser-sdk.js"></script>
     <script>
       window.CoralogixRum.init({
@@ -114,6 +122,7 @@
         },
       });
     </script>
+    <script src="https://azureedge.net" defer></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     

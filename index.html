@@ -90,12 +90,29 @@
       });
     </script> -->
     <!-- ******CLARITY****** -->
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
             t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
         })(window, document, "clarity", "script", "x7uprz3qpl");
+    </script> -->
+    <!-- ******CORALOGIX****** -->
+    <script src="https://cdn.rum-ingress-coralogix.com/coralogix/browser/3.10.0/coralogix-browser-sdk.js"></script>
+    <script>
+      window.CoralogixRum.init({
+        public_key: 'cxtp_HC9V4n8AKGAScwo0io3qQTx6XIVil8',         // Your Coralogix RUM API key
+        application: 'coco',   // Your application name
+        version: '1.0.0',            // e.g. '1.0.0'
+        coralogixDomain: 'EU1',         // EU1, EU2, US1, US2, AP1, or AP2
+
+        sessionRecordingConfig: {
+          enable: true,                          // Required: enables session recording
+          autoStartSessionRecording: true,       // Automatically starts recording on SDK init
+          recordConsoleEvents: true,             // Records console log/warn/error/debug events
+          sessionRecordingSampleRate: 100,       // % of sessions to record (0–100)
+        },
+      });
     </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -278,7 +295,6 @@
             <label for="password">Password</label>
             <input
                 class="nr-unmask"
-                data-clarity-unmask="true"
                 type="password"
                 id="password"
                 placeholder="Enter your password"
@@ -325,10 +341,10 @@
         <div class="nr-ignore">ignore <input type="text" placeholder="ignore"></div>
         <div class="nr-block">block <input type="text" placeholder="block"></div> -->
         <!-- ****CLARITY**** -->
-        <div data-clarity-mask="true">mask <input type="text" placeholder="mask"></div>
+        <!-- <div data-clarity-mask="true">mask <input type="text" placeholder="mask"></div>
         <div data-clarity-unmask="true">unmask <input type="text" placeholder="unmask"></div>
         <input data-clarity-unmask="false" type="text" placeholder="mask">
-        <input data-clarity-mask="false" type="text" placeholder="unmask">
+        <input data-clarity-mask="false" type="text" placeholder="unmask"> -->
 
         <h2>Live Browser Webcam Feed</h2>
         <!-- The playsinline attribute prevents iOS from opening full-screen media players -->

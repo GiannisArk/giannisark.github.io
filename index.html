@@ -127,8 +127,22 @@
     <!-- ******BITDRIFT****** -->
     <!-- IS A DEVICE PLUGIN ONLY -->
     <!-- ******DYNATRACE****** -->
-    <script type="text/javascript" src="https://dok.js-cdn.dynatrace.com/jstag/17fb5a5df08/bf67369abe/bdb983c342ae9d54_complete.js" crossorigin="anonymous"></script>
-
+    <!-- <script type="text/javascript" src="https://dok.js-cdn.dynatrace.com/jstag/17fb5a5df08/bf67369abe/bdb983c342ae9d54_complete.js" crossorigin="anonymous"></script> -->
+    <!-- ******FULLSESSION****** -->
+    <script type="text/javascript">
+        window.FUS_IS_IN_IFRAME = (window.top!=window.self);
+        (function (m, n, t, l, x, p, o) {
+            window["_fus_host"] = l;
+            window["_site_id"] = p;
+            window["_fus_id"] = x;
+            o = n.createElement(t);
+            o.type = "text/javascript";
+            o.async = true;
+            o.src = "https://emitter.fullsession.io/RTSessions.js";
+            y = n.getElementsByTagName(t)[0];
+            y.parentNode.insertBefore(o, y);
+        })(window, document, "script", "fullsession.io", 'cus_mm1tdv7246f');
+    </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -367,10 +381,10 @@
         <input data-clarity-unmask="false" type="text" placeholder="mask">
         <input data-clarity-mask="false" type="text" placeholder="unmask"> -->
         <!-- ******DYNATRACE****** -->
-        <input data-dtrum-mask="true" type="text" placeholder="mask">
+        <!-- <input data-dtrum-mask="true" type="text" placeholder="mask">
         <input data-dtrum-mask="false" type="text" placeholder="unmask">
         <input class="dtrum-mask" type="text" placeholder="mask">
-        <input class="dtrum-unmask" type="text" placeholder="unmask">
+        <input class="dtrum-unmask" type="text" placeholder="unmask"> -->
 
 
         <h2>Live Browser Webcam Feed</h2>

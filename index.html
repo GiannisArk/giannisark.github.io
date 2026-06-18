@@ -155,6 +155,8 @@
           track_pageview: true,
           record_sessions_percent: 100,
           record_heatmap_data: true,
+          record_mask_all_text: false,
+          record_mask_all_input: false,
           api_host: 'https://api-eu.mixpanel.com',
         })
 
@@ -402,6 +404,11 @@
         <input data-dtrum-mask="false" type="text" placeholder="unmask">
         <input class="dtrum-mask" type="text" placeholder="mask">
         <input class="dtrum-unmask" type="text" placeholder="unmask"> -->
+        <!-- ******FULLSESSION****** -->
+        <input class="mp-mask" type="text" placeholder="mask">
+        <div class="mp-mask">mask <input type="text" placeholder="mask"></div>
+        <input class="mp-block" type="text" placeholder="block">
+        <div class="mp-block">block <input type="text" placeholder="block"></div>
 
 
         <h2>Live Browser Webcam Feed</h2>

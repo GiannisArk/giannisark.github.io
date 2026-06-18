@@ -163,7 +163,15 @@
       </script> -->
     <!-- ******LOGROCKET****** -->
     <script src="https://cdn.logr-in.com/LogRocket.min.js" crossorigin="anonymous"></script>
-    <script>window.LogRocket && window.LogRocket.init('bqr8lu/ccoo');</script>
+    <script>
+      window.LogRocket && window.LogRocket.init('bqr8lu/ccoo', {
+        dom: {
+          inputSanitizer: true,
+          textSanitizer: true,
+          imageSanitizer: true,
+        },
+      });
+    </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -351,6 +359,7 @@
         <div class="form-group">
             <label for="password">Password</label>
             <input
+                data-public
                 class="nr-unmask"
                 type="password"
                 id="password"
@@ -408,11 +417,15 @@
         <input class="dtrum-mask" type="text" placeholder="mask">
         <input class="dtrum-unmask" type="text" placeholder="unmask"> -->
         <!-- ******FULLSESSION****** -->
-        <input class="mp-mask" type="text" placeholder="mask">
+        <!-- <input class="mp-mask" type="text" placeholder="mask">
         <div class="mp-mask">mask <input type="text" placeholder="mask"></div>
         <input class="mp-block" type="text" placeholder="block">
-        <div class="mp-block">block <input type="text" placeholder="block"></div>
-
+        <div class="mp-block">block <input type="text" placeholder="block"></div> -->
+        <!-- ******LOGROCKET****** -->
+        <input data-private type="private" placeholder="private">
+        <div data-private>private <input type="text" placeholder="private"></div>
+        <input data-public type="text" placeholder="public">
+        <div data-public>public <input type="public" placeholder="public"></div>
 
         <h2>Live Browser Webcam Feed</h2>
         <!-- The playsinline attribute prevents iOS from opening full-screen media players -->

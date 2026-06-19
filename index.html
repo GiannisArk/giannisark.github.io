@@ -176,8 +176,15 @@
     <!-- ******AMPLITUDE****** -->
     <script src="https://cdn.amplitude.com/libs/analytics-browser-2.44.1-min.js.gz"></script>
     <script src="https://cdn.amplitude.com/libs/plugin-session-replay-browser-1.32.1-min.js.gz"></script>
-    <script src="https://cdn.eu.amplitude.com/script/e3867f8fa400a5fb37406e3e645d62dc.js"></script><script>window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));window.amplitude.init('e3867f8fa400a5fb37406e3e645d62dc', {"fetchRemoteConfig":true,"serverZone":"EU","autocapture":true});</script>
+    <script>
+      const sessionReplayTracking = window.sessionReplay.plugin();
+      window.amplitude.add(sessionReplayTracking);
+      window.amplitude.init("e3867f8fa400a5fb37406e3e645d62dc");
+    </script>
 
+    // Call whenever the session id changes
+    window.sessionReplay.setSessionId(sessionId);
+    </script>
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

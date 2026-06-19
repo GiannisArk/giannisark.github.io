@@ -174,8 +174,6 @@
     </script> -->
     <!-- ******UXCAM****** -->
     <!-- ******AMPLITUDE****** -->
-    <!-- <script src="https://cdn.eu.amplitude.com/libs/analytics-browser-2.44.1-min.js.gz"></script>
-    <script src="https://cdn.eu.amplitude.com/libs/plugin-session-replay-browser-1.32.1-min.js.gz"></script> -->
     <script src="https://cdn.eu.amplitude.com/script/1a58958bdb49905ecfbf27884a139c20.js"></script><script>window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));window.amplitude.init('1a58958bdb49905ecfbf27884a139c20', {"fetchRemoteConfig":true,"serverZone":"EU","autocapture":true});</script>
 
 
@@ -334,9 +332,9 @@
         </div>
 
         <!-- Username Input -->
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" placeholder="name">
+        <div data-amp-unmask class="form-group">
+            <label data-amp-unmask for="username">Username</label>
+            <input data-amp-unmask type="text" id="username" placeholder="name">
         </div>
 
         <!-- Phone Input -->
@@ -366,6 +364,7 @@
         <div class="form-group">
             <label for="password">Password</label>
             <input
+                data-amp-unmask
                 data-public
                 class="nr-unmask"
                 type="password"
@@ -433,6 +432,12 @@
         <div data-private>private <input type="text" placeholder="private"></div>
         <input data-public type="text" placeholder="public">
         <div data-public>public <input type="public" placeholder="public"></div> -->
+        <!-- ******UXCAM****** -->
+
+        <!-- ******AMPLITUDE****** -->
+        <input data-amp-unmask type="text" placeholder="public">
+        <div data-amp-unmask>public <input type="public" placeholder="public"></div>
+        
 
         <h2>Live Browser Webcam Feed</h2>
         <!-- The playsinline attribute prevents iOS from opening full-screen media players -->

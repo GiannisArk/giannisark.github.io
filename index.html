@@ -212,6 +212,26 @@
             api_host: 'https://eu.i.posthog.com',
             defaults: '2026-05-30',
             person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+            session_recording: {
+              maskAllInputs: false,
+              maskInputOptions: {
+                  password: false, // Highly recommended as a minimum!!
+                  // color: false,
+                  // date: false,
+                  // 'datetime-local': false,
+                  // email: false,
+                  // month: false,
+                  // number: false,
+                  // range: false,
+                  // search: false,
+                  // tel: false,
+                  // text: false,
+                  // time: false,
+                  // url: false,
+                  // week: false,
+                  // textarea: false,
+                  // select: false,
+          }
         })
     </script>
 
@@ -474,7 +494,11 @@
         <!-- ******AMPLITUDE****** -->
         <!-- <input data-amp-unmask type="text" placeholder="public">
         <div data-amp-unmask>public <input type="public" placeholder="public"></div> -->
-        
+        <!-- ******POSTHOG****** -->
+        <input class="ph-no-capture" placeholder="private">
+        <div class="ph-no-capture">private <input type="text" placeholder="private"></div>
+        <input data-record="true" type="password" placeholder="public">
+        <div data-record="true">public <input type="password" placeholder="public"></div>
 
         <h2>Live Browser Webcam Feed</h2>
         <!-- The playsinline attribute prevents iOS from opening full-screen media players -->
